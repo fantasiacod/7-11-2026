@@ -774,7 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorPrimary: '#caaa98',
             btnTextColor: '#202940',
             colorBg: '#4b4038',
-            logoDataUrl: 'img/logo.jpg',
+            logoDataUrl: '',
             companyName: 'بطاقات التهنئة',
             logoPosition: 'right',
             buttonsPosition: 'left',

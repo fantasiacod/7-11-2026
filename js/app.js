@@ -432,7 +432,7 @@ function applysiteConfig_v2(overrideConfig) {
             decorationOpacity: '0.1',
             colorPrimary: '#caaa98',
             colorBg: '#4b4038',
-            logoDataUrl: 'img/logo.jpg',
+            logoDataUrl: '',
             companyName: 'بطاقات التهنئة',
             logoPosition: 'right',
             buttonsPosition: 'left'
@@ -485,13 +485,42 @@ function applysiteConfig_v2(overrideConfig) {
 
 
         // Topbar Logo and Position
+        // ------------------------------------------------------------
+        // ثلاثة أخطاء كانت هنا:
+        //
+        // ١) كان يقرأ logoDataUrl وحده. فمن يضع شعاره برابط (حقل «أو ضع
+        //    رابط الشعار») تبقى logoDataUrl فارغة عنده، فيسقط الكود إلى
+        //    البديل أدناه ويختفي شعاره.
+        // ٢) البديل كان 'img/logo.jpg' — ملف غير موجود في المشروع أصلاً،
+        //    فكانت النتيجة أيقونة صورة مكسورة مكتوب بجانبها Logo.
+        // ٣) كان يستبدل الصورة التي طبعها الخادم بصورة جديدة، فيضيع
+        //    المعرّف site-logo والنص البديل العربي.
+        //
+        // الآن: نفس ترتيب الخادم (logoDataUrl ثم logoUrl)، ونحدّث الصورة
+        // الموجودة بدل استبدالها، وإن لم يوجد شعار نخفيها بدل عرض مكسور.
         const logoContainer = document.getElementById('header-logo-container');
         if (logoContainer) {
-            const logoSrc = (config.logoDataUrl && config.logoDataUrl.trim() !== '') 
-                ? config.logoDataUrl 
-                : 'img/logo.jpg';
-            
-            logoContainer.innerHTML = `<img src="${logoSrc}" alt="Logo" class="logo">`;
+            const pick = (v) => (typeof v === 'string' && v.trim() !== '') ? v.trim() : '';
+            const logoSrc = pick(config.logoDataUrl) || pick(config.logoUrl);
+
+            let logoImg = logoContainer.querySelector('img');
+            if (!logoImg) {
+                logoImg = document.createElement('img');
+                logoImg.id = 'site-logo';
+                logoImg.className = 'logo';
+                logoImg.alt = 'شعار الموقع';
+                logoContainer.appendChild(logoImg);
+            }
+
+            if (logoSrc) {
+                if (logoImg.getAttribute('src') !== logoSrc) {
+                    logoImg.setAttribute('src', logoSrc);
+                }
+                logoImg.style.display = '';
+            } else {
+                logoImg.removeAttribute('src');
+                logoImg.style.display = 'none';
+            }
             logoContainer.style.display = '';
 
             const header = document.querySelector('.header');
