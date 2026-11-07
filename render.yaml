@@ -2,13 +2,23 @@ services:
   - type: web
     name: greeting-cards
     runtime: docker
-    plan: starter          # A paid plan is required for the disk below.
+    plan: free                 # الخطة المجانية — لا تقبل قرصاً دائماً
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /index.html
-    disks:
-      # IMPORTANT: without a persistent disk, Render wipes the filesystem
-      # on every deploy and restart. That would erase the admin password
-      # and all site settings, sending the panel back to admin/admin.
-      - name: site-data
-        mountPath: /var/www/html/data
-        sizeGB: 1
+
+    # كان /index.html، وهو ملف تحويل قديم يرجع 200 دائماً، فيقول Render
+    # «الخدمة سليمة» بينما الزائر يرى صفحة فارغة. الآن يفحص الصفحة الحقيقية.
+    healthCheckPath: /index.php
+
+    envVars:
+      # بيانات الموقع خارج مجلد الويب فلا تُنزَّل من المتصفح.
+      - key: CARED_DATA_DIR
+        value: /var/data
+
+    # ⚠️ لا يوجد disks هنا عن قصد: القرص الدائم يتطلّب خطة مدفوعة.
+    # النتيجة على الخطة المجانية: كل إعادة تشغيل تمسح الإعدادات والصور
+    # المرفوعة، وترجع كلمة المرور إلى admin/admin. هذا سلوك الخطة لا عطل
+    # في البرنامج. وللحفظ الدائم: غيّر plan إلى starter وأضف
+    #   disks:
+    #     - name: site-data
+    #       mountPath: /var/data
+    #       sizeGB: 1
