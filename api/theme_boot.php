@@ -35,7 +35,7 @@ function theme_fallbacks()
         'decorationOpacity'  => '0.15',
         'fontFamily'         => "'Tajawal', 'Cairo', sans-serif",
         'companyName'        => 'بطاقات التهنئة',
-        'logoUrl'            => 'img/logo.jpg',
+        'logoUrl'            => '',  // لا شعار افتراضي: img/logo.jpg غير موجود في المشروع
     );
 }
 

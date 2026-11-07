@@ -27,7 +27,7 @@ if (!is_array($data) || empty($data)) {
             'btnTextColor' => '#202940',
             'textColor' => '#ffffff',
             'fontFamily' => 'Cairo',
-            'logoUrl' => 'img/logo.jpg',
+            'logoUrl' => '',
             'logoPosition' => 'right',
             'buttonsPosition' => 'left',
             'decoration' => 'none',
