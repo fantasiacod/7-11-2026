@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: greeting-cards
+    runtime: docker
+    plan: starter          # A paid plan is required for the disk below.
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /index.html
+    disks:
+      # IMPORTANT: without a persistent disk, Render wipes the filesystem
+      # on every deploy and restart. That would erase the admin password
+      # and all site settings, sending the panel back to admin/admin.
+      - name: site-data
+        mountPath: /var/www/html/data
+        sizeGB: 1

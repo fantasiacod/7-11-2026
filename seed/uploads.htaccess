@@ -1,0 +1,24 @@
+# Needed when uploads/ is a symlink into a persistent disk
+Options +FollowSymLinks
+
+# Disable PHP execution in uploads directory
+<FilesMatch "(?i)\.(php|php3|php4|php5|phtml|pl|py|cgi)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Allow image files only
+<FilesMatch "(?i)\.(jpe?g|png|gif|webp|svg|ico)$">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Allow from all
+    </IfModule>
+</FilesMatch>

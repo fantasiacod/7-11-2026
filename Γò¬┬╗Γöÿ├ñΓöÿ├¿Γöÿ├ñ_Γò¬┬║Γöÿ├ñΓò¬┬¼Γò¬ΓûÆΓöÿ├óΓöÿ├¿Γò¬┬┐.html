@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل تركيب منصة بطاقات التهنئة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f172a; --muted:#5b6b82; --line:#dfe6ef;
+    --brand:#0e7490; --brand-soft:#ecfeff;
+    --ok:#15803d; --ok-soft:#f0fdf4;
+    --warn:#b45309; --warn-soft:#fffbeb;
+    --bad:#b91c1c; --bad-soft:#fef2f2;
+    --code:#0b1220;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Tajawal','Cairo',system-ui,sans-serif;
+    color:var(--ink); background:#fff; margin:0;
+    line-height:1.95; font-size:16px;
+  }
+  .page{max-width:920px;margin:0 auto;padding:36px 28px 70px;}
+
+  .cover{
+    background:linear-gradient(135deg,#0b2540,#0e7490);
+    color:#fff;border-radius:18px;padding:44px 34px;margin-bottom:38px;
+  }
+  .cover h1{margin:0 0 10px;font-size:2.15rem;font-weight:800;line-height:1.4;}
+  .cover p{margin:0;opacity:.92;font-size:1.05rem;}
+  .cover .tag{
+    display:inline-block;background:rgba(255,255,255,.16);
+    padding:6px 15px;border-radius:20px;font-size:.85rem;margin-bottom:16px;
+  }
+
+  h2{
+    font-size:1.45rem;margin:44px 0 6px;padding-bottom:10px;
+    border-bottom:3px solid var(--brand);font-weight:800;
+  }
+  h3{font-size:1.12rem;margin:26px 0 8px;font-weight:700;color:#12455e;}
+  p{margin:10px 0;}
+
+  .lead{color:var(--muted);margin-top:4px;}
+
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:16px 0;}
+  ol.steps>li{
+    counter-increment:s;position:relative;
+    padding:14px 62px 14px 16px;margin-bottom:12px;
+    background:#f8fafc;border:1px solid var(--line);border-radius:12px;
+  }
+  ol.steps>li::before{
+    content:counter(s);position:absolute;right:16px;top:14px;
+    width:32px;height:32px;border-radius:50%;
+    background:var(--brand);color:#fff;font-weight:800;
+    text-align:center;line-height:32px;font-size:.95rem;
+  }
+  ol.steps>li b{color:#0b3a52;}
+
+  .note{border-radius:12px;padding:15px 18px;margin:18px 0;border:1px solid;}
+  .note.info{background:var(--brand-soft);border-color:#a5f3fc;}
+  .note.ok{background:var(--ok-soft);border-color:#bbf7d0;}
+  .note.warn{background:var(--warn-soft);border-color:#fde68a;}
+  .note.bad{background:var(--bad-soft);border-color:#fecaca;}
+  .note b{display:block;margin-bottom:4px;}
+
+  code,kbd{
+    background:#eef2f7;padding:2px 7px;border-radius:5px;
+    font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:.88em;direction:ltr;display:inline-block;
+  }
+  pre{
+    background:var(--code);color:#e2e8f0;padding:16px 18px;border-radius:10px;
+    direction:ltr;text-align:left;overflow-x:auto;font-size:.85rem;line-height:1.7;
+    font-family:ui-monospace,Menlo,Consolas,monospace;
+  }
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem;}
+  th,td{border:1px solid var(--line);padding:10px 13px;text-align:right;}
+  th{background:#f1f5f9;font-weight:700;}
+
+  figure{margin:22px 0;}
+  figure svg{width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff;}
+  figcaption{
+    text-align:center;color:var(--muted);font-size:.87rem;margin-top:8px;
+  }
+
+  .toc{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:20px 24px;}
+  .toc ol{margin:8px 0 0;padding-right:20px;}
+  .toc li{margin:5px 0;}
+  .toc a{color:var(--brand);text-decoration:none;font-weight:500;}
+
+  .pill{display:inline-block;padding:3px 11px;border-radius:20px;font-size:.8rem;font-weight:700;}
+  .pill.a{background:#dcfce7;color:#15803d;}
+  .pill.b{background:#fee2e2;color:#b91c1c;}
+
+
+  /* Screen mockups built from HTML so Arabic shapes correctly.
+     SVG <text> gets no bidi shaping in PDF renderers. */
+  .mock{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0;}
+  .mock .bar{background:#0b2540;color:#cbd5e1;padding:9px 14px;font-family:ui-monospace,monospace;
+             font-size:.82rem;direction:ltr;text-align:left;}
+  .mock .body{padding:18px;background:#fff;}
+  .mock.dark .body{background:#111827;}
+  .fld{border:1.5px solid #94a3b8;border-radius:7px;padding:9px 12px;background:#fff;
+       font-family:ui-monospace,monospace;direction:ltr;text-align:left;font-size:.86rem;margin:6px 0 14px;}
+  .lbl{font-weight:700;font-size:.93rem;margin-bottom:2px;}
+  .opt{padding:10px 14px;border-radius:8px;border:1.5px solid var(--line);margin-bottom:8px;
+       background:#f8fafc;font-size:.93rem;}
+  .opt.sel{border-color:var(--brand);border-width:2.5px;background:var(--brand-soft);font-weight:700;}
+  .opt.dim{color:#94a3b8;}
+  .mock.dark .opt{background:#1f2937;border-color:#374151;color:#9ca3af;}
+  .mock.dark .opt.sel{background:#3b0764;border-color:#a855f7;color:#e9d5ff;}
+  .btn-g{display:inline-block;background:#15803d;color:#fff;padding:10px 22px;border-radius:8px;font-weight:700;font-size:.93rem;}
+  .btn-w{display:inline-block;background:#fff;color:#111827;padding:9px 20px;border-radius:6px;font-weight:700;font-size:.9rem;}
+  .btn-b{display:inline-block;background:var(--brand);color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;font-size:.95rem;}
+  .cols{display:table;width:100%;table-layout:fixed;border-spacing:12px 0;}
+  .col{display:table-cell;vertical-align:top;}
+  .card-x{border:2px solid #b91c1c;background:var(--bad-soft);border-radius:11px;padding:14px 16px;}
+  .card-v{border:2px solid #15803d;background:var(--ok-soft);border-radius:11px;padding:14px 16px;}
+  .card-n{border:2px solid var(--brand);background:#f8fafc;border-radius:11px;padding:14px 16px;height:100%;}
+  .flow{display:table;width:100%;table-layout:fixed;border-spacing:8px 0;margin:6px 0;}
+  .flow .f{display:table-cell;text-align:center;background:#f8fafc;border:2px solid var(--brand);
+           border-radius:11px;padding:14px 8px;vertical-align:middle;}
+  .flow .f.go{background:var(--ok-soft);border-color:var(--ok);}
+  .flow .f b{display:block;font-size:1rem;color:#0b3a52;}
+  .flow .f span{font-size:.8rem;color:var(--muted);}
+  .mono{font-family:ui-monospace,monospace;direction:ltr;display:inline-block;font-size:.85rem;}
+
+  @media print{
+    body{font-size:12.5px;}
+    .page{padding:0;max-width:100%;}
+    h2{page-break-after:avoid;}
+    figure,ol.steps>li,.note,table{page-break-inside:avoid;}
+    .cover{background:#0b2540 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .note,th,pre,ol.steps>li{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <span class="tag">دليل التركيب والتشغيل — الإصدار 48</span>
+  <h1>منصة بطاقات التهنئة</h1>
+  <p>من رفع الملفات إلى ربط قاعدة البيانات وتشغيل الموقع بالكامل</p>
+</div>
+
+<div class="toc">
+  <b>محتويات الدليل</b>
+  <ol>
+    <li><a href="#req">قبل أن تبدأ — المتطلبات</a></li>
+    <li><a href="#files">هيكل ملفات المشروع</a></li>
+    <li><a href="#github">رفع الملفات على GitHub</a></li>
+    <li><a href="#render">النشر على Render</a></li>
+    <li><a href="#cpanel">الرفع على استضافة عادية (cPanel / FTP)</a></li>
+    <li><a href="#db">إنشاء قاعدة البيانات</a></li>
+    <li><a href="#connect">الربط من لوحة التحكم</a></li>
+    <li><a href="#secure">تأمين الموقع بعد التركيب</a></li>
+    <li><a href="#trouble">حل المشاكل الشائعة</a></li>
+  </ol>
+</div>
+
+<!-- ================= 1 ================= -->
+<h2 id="req">١. قبل أن تبدأ — المتطلبات</h2>
+<p class="lead">الموقع يحتاج استضافة تشغّل <b>PHP</b>. هذه النقطة أساسية ولا بديل عنها.</p>
+
+<table>
+  <tr><th>نوع الاستضافة</th><th>هل تعمل؟</th><th>ملاحظة</th></tr>
+  <tr><td>استضافة cPanel تدعم PHP</td><td><span class="pill a">تعمل</span></td><td>الخيار الأسهل</td></tr>
+  <tr><td>Render (نوع Docker)</td><td><span class="pill a">تعمل</span></td><td>يحتاج ملف Dockerfile المرفق</td></tr>
+  <tr><td>Render (نوع Static Site)</td><td><span class="pill b">لا تعمل</span></td><td>لا يشغّل PHP</td></tr>
+  <tr><td>GitHub Pages</td><td><span class="pill b">لا تعمل</span></td><td>ملفات ثابتة فقط</td></tr>
+  <tr><td>Netlify / Vercel (ثابت)</td><td><span class="pill b">لا تعمل</span></td><td>لا يشغّل PHP</td></tr>
+</table>
+
+<div class="note bad">
+  <b>تحذير مهم</b>
+  لا ترفع المشروع على GitHub Pages أو أي استضافة ملفات ثابتة. في هذه الحالة تُعرض ملفات PHP
+  كنصوص بدل تنفيذها، وهذا يكشف ملف بيانات الدخول للجميع.
+</div>
+
+<figure>
+<div class="flow">
+  <div class="f"><b>ملفات المشروع</b><span>على جهازك</span></div>
+  <div class="f"><b>GitHub</b><span>مستودع الكود</span></div>
+  <div class="f"><b>الاستضافة</b><span>Render أو cPanel</span></div>
+  <div class="f go"><b>الزوار</b><span>الموقع يعمل</span></div>
+</div>
+<div class="note warn" style="margin:10px 0 0;">
+  قاعدة البيانات ترتبط بالاستضافة في الخطوتين ٦ و ٧.
+</div>
+<figcaption>مسار التركيب الكامل من جهازك حتى وصول الموقع للزوار</figcaption>
+</figure>
+
+<!-- ================= 2 ================= -->
+<h2 id="files">٢. هيكل ملفات المشروع</h2>
+<p class="lead">حافظ على هذا الترتيب تماماً. تغيير أماكن المجلدات يوقف الموقع.</p>
+
+<pre>site_ready_v48/
+├── index.php          ← الصفحة الرئيسية (افتحها بهذا الاسم)
+├── login.php          ← تسجيل الدخول
+├── admin.php          ← لوحة التحكم
+├── debug.php          ← صفحة التشخيص (احذفها بعد التركيب)
+├── Dockerfile         ← مطلوب لـ Render فقط
+├── .htaccess          ← إعدادات الحماية والكاش
+│
+├── api/               ← ملفات الخادم (لا تعدّلها)
+│   ├── auth.php       ← تسجيل الدخول والجلسات
+│   ├── storage.php    ← طبقة قواعد البيانات
+│   ├── get_data.php   ← قراءة بيانات الموقع
+│   ├── save_data.php  ← حفظ التعديلات
+│   ├── upload.php     ← رفع الصور
+│   ├── db_config.php  ← إعداد قاعدة البيانات
+│   └── health.php     ← فحص حالة النظام
+│
+├── data/              ← بيانات الموقع وكلمة المرور  (مهم: صلاحية كتابة)
+├── uploads/           ← الصور المرفوعة              (مهم: صلاحية كتابة)
+├── css/  js/  assets/ ← التصميم والسكربتات والزخارف
+└── seed/              ← بيانات البداية الافتراضية</pre>
+
+<div class="note warn">
+  <b>مجلدان يحتاجان صلاحية الكتابة</b>
+  <code>data</code> و <code>uploads</code> يجب أن تكون صلاحيتهما <b>755</b> أو <b>775</b>.
+  بدون ذلك لن يستطيع الموقع حفظ الإعدادات ولا الصور.
+</div>
+
+<!-- ================= 3 ================= -->
+<h2 id="github">٣. رفع الملفات على GitHub</h2>
+<p class="lead">هذه الخطوة مطلوبة فقط إذا كنت ستنشر على Render. لاستضافة cPanel انتقل للقسم ٥.</p>
+
+<figure>
+<div class="mock">
+  <div class="bar">github.com/new</div>
+  <div class="body">
+    <div class="lbl">Repository name</div>
+    <div class="fld">greeting-cards</div>
+    <div class="opt sel">◉ &nbsp;Private — خاص (موصى به)</div>
+    <div class="opt dim">○ &nbsp;Public — عام</div>
+    <div style="text-align:left;margin-top:14px;"><span class="btn-g">Create repository</span></div>
+  </div>
+</div>
+<figcaption>شاشة إنشاء مستودع جديد على GitHub — اختر Private حتى لا يظهر كودك للجميع</figcaption>
+</figure>
+
+<ol class="steps">
+  <li>افتح <code>github.com</code> وسجّل الدخول، ثم اضغط <b>+</b> في الأعلى واختر <b>New repository</b>.</li>
+  <li>اكتب اسماً بالإنجليزية بلا مسافات، مثل <code>greeting-cards</code>، واختر <b>Private</b>، ثم <b>Create repository</b>.</li>
+  <li>في الصفحة التالية اضغط الرابط <b>uploading an existing file</b>.</li>
+  <li>
+    <b>فُك ضغط ملف المشروع أولاً</b>، ثم اسحب <b>محتويات</b> مجلد <code>site_ready_v48</code>
+    (لا المجلد نفسه) إلى نافذة الرفع. يجب أن يظهر <code>index.php</code> في المستوى الأول.
+  </li>
+  <li>اكتب وصفاً في خانة <b>Commit changes</b> ثم اضغط الزر الأخضر <b>Commit changes</b>.</li>
+</ol>
+
+<div class="note bad">
+  <b>أكثر خطأ شائع</b>
+  رفع المجلد <code>site_ready_v48</code> نفسه بدل محتوياته. النتيجة أن الملفات تصبح داخل مجلد فرعي
+  فلا تجدها الاستضافة ويظهر خطأ <code>Not Found</code>.
+  تأكد أن <code>index.php</code> و<code>Dockerfile</code> ظاهران مباشرة في الصفحة الأولى للمستودع.
+</div>
+
+<figure>
+<div class="cols">
+  <div class="col">
+    <div class="card-v">
+      <b style="color:#15803d;">صحيح ✓</b>
+      <div style="margin-top:8px;line-height:2;">
+        <span class="mono">index.php</span><br>
+        <span class="mono">admin.php</span><br>
+        <span class="mono">Dockerfile</span><br>
+        <span class="mono">api/  css/  js/  data/</span>
+      </div>
+      <div style="font-size:.83rem;color:#15803d;margin-top:8px;">الملفات في المستوى الأول</div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card-x">
+      <b style="color:#b91c1c;">خطأ ✕</b>
+      <div style="margin-top:8px;line-height:2;">
+        <span class="mono">site_ready_v48/</span><br>
+        <span class="mono" style="color:#94a3b8;">&nbsp;&nbsp;&nbsp;index.php</span><br>
+        <span class="mono" style="color:#94a3b8;">&nbsp;&nbsp;&nbsp;admin.php</span><br>
+        <span class="mono" style="color:#94a3b8;">&nbsp;&nbsp;&nbsp;api/</span>
+      </div>
+      <div style="font-size:.83rem;color:#b91c1c;margin-top:8px;">الملفات داخل مجلد فرعي</div>
+    </div>
+  </div>
+</div>
+<figcaption>الفرق بين الرفع الصحيح والخاطئ على GitHub</figcaption>
+</figure>
+
+<!-- ================= 4 ================= -->
+<h2 id="render">٤. النشر على Render</h2>
+
+<ol class="steps">
+  <li>افتح <code>render.com</code> وسجّل الدخول بحساب GitHub.</li>
+  <li>اضغط <b>New +</b> ثم اختر <b>Web Service</b>.</li>
+  <li>اختر المستودع الذي رفعته، ثم <b>Connect</b>.</li>
+  <li>
+    في خانة <b>Language</b> اختر <b>Docker</b>.
+    <br><span style="color:#b91c1c;font-weight:700;">لا تختر Static Site — لن يعمل الموقع.</span>
+  </li>
+  <li>اترك باقي الإعدادات كما هي واضغط <b>Deploy Web Service</b>.</li>
+  <li>انتظر حتى تتحول الحالة إلى <b>Live</b> (عادة ٣ إلى ٥ دقائق).</li>
+</ol>
+
+<figure>
+<div class="mock dark">
+  <div class="bar">render.com — New Web Service</div>
+  <div class="body">
+    <div style="color:#e5e7eb;font-weight:700;margin-bottom:12px;">Language</div>
+    <div class="opt sel">✓ &nbsp;Docker &nbsp;&nbsp;<span style="font-weight:400;font-size:.85rem;">← اختر هذا</span></div>
+    <div class="opt">Node</div>
+    <div class="opt">Python 3</div>
+    <div class="opt">Ruby</div>
+    <div style="color:#f87171;font-size:.86rem;margin-top:10px;">
+      لا يوجد خيار PHP في القائمة، ولهذا نستخدم Docker مع ملف Dockerfile المرفق.
+    </div>
+    <div style="text-align:left;margin-top:14px;"><span class="btn-w">Deploy Web Service</span></div>
+  </div>
+</div>
+<figcaption>اختر Docker من قائمة Language — لا يوجد خيار PHP مباشر</figcaption>
+</figure>
+
+<div class="note warn">
+  <b>مهم جداً على Render: القرص الدائم</b>
+  Render يمسح ملفات الموقع مع كل عملية نشر. بدون قرص دائم ستفقد إعداداتك وكلمة مرور الأدمن
+  وتعود إلى <code>admin/admin</code>.
+  <br><b>الحل:</b> اربط الموقع بقاعدة بيانات خارجية (Supabase أو MySQL) من القسم ٦،
+  عندها تُحفظ بياناتك خارج Render ولا تتأثر بالنشر.
+</div>
+
+<!-- ================= 5 ================= -->
+<h2 id="cpanel">٥. الرفع على استضافة عادية (cPanel / FTP)</h2>
+
+<ol class="steps">
+  <li>ادخل لوحة تحكم الاستضافة واختر <b>File Manager</b> (مدير الملفات).</li>
+  <li>افتح مجلد <code>public_html</code> — وهو المجلد الذي يظهر للزوار.</li>
+  <li>احذف أي ملفات قديمة للموقع إن وُجدت، خاصة <code>index.html</code>.</li>
+  <li>اضغط <b>Upload</b> وارفع ملف المشروع المضغوط، ثم اضغط عليه بالزر الأيمن واختر <b>Extract</b>.</li>
+  <li>
+    تأكد أن <code>index.php</code> صار مباشرة داخل <code>public_html</code>.
+    إن ظهر مجلد <code>site_ready_v48</code> بداخله الملفات، ادخله وانقل محتوياته للأعلى.
+  </li>
+  <li>
+    اضبط الصلاحيات: اضغط بالزر الأيمن على مجلد <code>data</code> ثم <b>Permissions</b> واجعلها
+    <code>755</code>. كرر نفس الشيء مع <code>uploads</code>.
+  </li>
+  <li>افتح موقعك في المتصفح للتأكد من ظهور الصفحة.</li>
+</ol>
+
+<div class="note info">
+  <b>ملف Dockerfile</b>
+  هذا الملف يخص Render فقط. وجوده على استضافة cPanel لا يضر ولا يؤثر على شيء.
+</div>
+
+<!-- ================= 6 ================= -->
+<h2 id="db">٦. إنشاء قاعدة البيانات</h2>
+<p class="lead">اختر واحدة فقط. إن كانت استضافتك عادية ودائمة فـ MySQL أبسط، وإن كانت على Render فاختر Supabase.</p>
+
+<figure>
+<div class="cols" style="margin-bottom:12px;">
+  <div class="col"><div class="card-n">
+    <b>MySQL</b><div style="font-size:.87rem;color:var(--muted);">موجودة في أغلب استضافات cPanel</div>
+    <div style="font-size:.85rem;color:#15803d;margin-top:5px;">الأنسب للاستضافات العادية</div>
+  </div></div>
+  <div class="col"><div class="card-n">
+    <b>SQLite</b><div style="font-size:.87rem;color:var(--muted);">ملف واحد بلا أي إعداد</div>
+    <div style="font-size:.85rem;color:#b45309;margin-top:5px;">لا تصلح على Render</div>
+  </div></div>
+</div>
+<div class="cols">
+  <div class="col"><div class="card-n" style="background:var(--brand-soft);">
+    <b>Supabase</b><div style="font-size:.87rem;color:var(--muted);">مجانية وخارج الاستضافة</div>
+    <div style="font-size:.85rem;color:#15803d;margin-top:5px;">الأنسب لـ Render</div>
+  </div></div>
+  <div class="col"><div class="card-n">
+    <b>Firebase</b><div style="font-size:.87rem;color:var(--muted);">من Google — إعداد سريع</div>
+    <div style="font-size:.85rem;color:var(--muted);margin-top:5px;">بديل جيد لـ Supabase</div>
+  </div></div>
+</div>
+<figcaption>خيارات قاعدة البيانات الأربعة داخل لوحة التحكم</figcaption>
+</figure>
+
+<h3>أ) إنشاء قاعدة MySQL على cPanel</h3>
+<ol class="steps">
+  <li>من لوحة cPanel افتح <b>MySQL Databases</b>.</li>
+  <li>اكتب اسم قاعدة البيانات واضغط <b>Create Database</b>، وسجّل الاسم الكامل الذي يظهر.</li>
+  <li>انزل إلى <b>Add New User</b>، أنشئ مستخدماً بكلمة مرور قوية، واحفظهما.</li>
+  <li>من <b>Add User To Database</b> اربط المستخدم بالقاعدة، وامنحه <b>ALL PRIVILEGES</b>.</li>
+</ol>
+<p>ستحتاج لاحقاً: اسم القاعدة، اسم المستخدم، كلمة المرور، والخادم (غالباً <code>localhost</code>).</p>
+
+<h3>ب) إنشاء مشروع Supabase</h3>
+<ol class="steps">
+  <li>افتح <code>supabase.com</code> وسجّل حساباً مجانياً.</li>
+  <li>اضغط <b>New Project</b>، اختر اسماً وكلمة مرور لقاعدة البيانات واحفظها.</li>
+  <li>انتظر اكتمال التجهيز (دقيقتان تقريباً).</li>
+  <li>
+    افتح <b>Project Settings ← API</b> وانسخ:
+    <br>• <b>Project URL</b> — يشبه <code>https://xxxx.supabase.co</code>
+    <br>• <b>anon public</b> — المفتاح الطويل الذي يبدأ بـ <code>eyJ...</code>
+  </li>
+  <li>
+    افتح <b>SQL Editor</b> واضغط <b>New query</b>، ثم الصق كود SQL الذي ستنسخه من لوحة التحكم
+    (يوجد زر <b>نسخ الكود</b> بجانبه) واضغط <b>Run</b>.
+  </li>
+</ol>
+
+<div class="note bad">
+  <b>لا تستخدم مفتاح service_role</b>
+  في صفحة API ستجد مفتاحين. استخدم <b>anon public</b> فقط.
+  مفتاح <code>service_role</code> سري ويتجاوز كل الحمايات، ولا يصلح للاستخدام هنا.
+</div>
+
+<!-- ================= 7 ================= -->
+<h2 id="connect">٧. الربط من لوحة التحكم</h2>
+
+<ol class="steps">
+  <li>افتح <code>موقعك.com/login.php</code>.</li>
+  <li>سجّل الدخول ببيانات البداية: المستخدم <code>admin</code> وكلمة المرور <code>admin</code>.</li>
+  <li>من القائمة الجانبية اختر <b>قاعدة البيانات والربط السحابي</b>.</li>
+  <li>راجع <b>فحص حالة النظام</b> في أعلى الصفحة، وأصلح أي بند أحمر قبل المتابعة.</li>
+  <li>اختر نوع قاعدة البيانات، واملأ البيانات، ثم اضغط <b>اتصال وحفظ</b>.</li>
+  <li>عند ظهور رسالة نجاح خضراء يكون الربط قد تم ونُقلت بياناتك تلقائياً.</li>
+</ol>
+
+<figure>
+<div class="mock">
+  <div class="bar">موقعك.com/admin.php</div>
+  <div class="body">
+    <div style="font-weight:800;color:#0b3a52;margin-bottom:12px;">مكان تخزين بيانات الموقع</div>
+    <div class="cols" style="margin-bottom:14px;">
+      <div class="col"><div class="opt sel">◉ MySQL</div></div>
+      <div class="col"><div class="opt">○ SQLite</div></div>
+      <div class="col"><div class="opt">○ Supabase</div></div>
+    </div>
+    <div class="lbl">اسم قاعدة البيانات</div>
+    <div class="fld">my_database</div>
+    <div class="lbl">اسم المستخدم</div>
+    <div class="fld">db_user</div>
+    <div class="lbl">كلمة المرور</div>
+    <div class="fld">••••••••</div>
+    <span class="btn-b">اتصال وحفظ</span>
+  </div>
+</div>
+<figcaption>صفحة قاعدة البيانات في لوحة التحكم</figcaption>
+</figure>
+
+<div class="note ok">
+  <b>الطريقة الأسرع لـ MySQL و PostgreSQL</b>
+  إن أعطتك الاستضافة <b>نص اتصال كامل</b> (Connection String) مثل
+  <code>mysql://user:pass@host:3306/dbname</code>، الصقه في الحقل المخصص واضغط
+  <b>اتصال تلقائي</b>. سيتم استخراج كل البيانات وإنشاء الجداول تلقائياً بلا أي خطوة أخرى.
+</div>
+
+<!-- ================= 8 ================= -->
+<h2 id="secure">٨. تأمين الموقع بعد التركيب</h2>
+
+<ol class="steps">
+  <li>
+    <b>غيّر بيانات الدخول فوراً.</b> من لوحة التحكم: <b>حسابي ← تغيير كلمة المرور</b>.
+    اكتب كلمة المرور الحالية <code>admin</code>، ثم اسم مستخدم جديداً وكلمة مرور لا تقل عن ٨ أحرف.
+  </li>
+  <li>
+    <b>احذف ملف <code>debug.php</code></b> من الاستضافة. مهمته التشخيص فقط،
+    ولا داعي لبقائه متاحاً للعامة.
+  </li>
+  <li>
+    <b>فعّل شهادة SSL</b> من لوحة الاستضافة ليعمل الموقع على <code>https</code>.
+    بدونها تنتقل كلمة المرور بلا تشفير. (على Render تكون مفعّلة تلقائياً.)
+  </li>
+</ol>
+
+<div class="note warn">
+  <b>بيانات الدخول الافتراضية</b>
+  المستخدم <code>admin</code> وكلمة المرور <code>admin</code>. سيظهر لك شريط أحمر في لوحة التحكم
+  ما دمت لم تغيّرها. لا تترك الموقع يعمل بها.
+</div>
+
+<!-- ================= 9 ================= -->
+<h2 id="trouble">٩. حل المشاكل الشائعة</h2>
+
+<table>
+  <tr><th style="width:32%">المشكلة</th><th>السبب والحل</th></tr>
+  <tr>
+    <td><b>Not Found</b> عند فتح الموقع</td>
+    <td>الملفات داخل مجلد فرعي. تأكد أن <code>index.php</code> في المستوى الأول، وليس داخل مجلد <code>site_ready_v48</code>.</td>
+  </tr>
+  <tr>
+    <td>يظهر كود PHP كنص في الصفحة</td>
+    <td>الاستضافة لا تشغّل PHP. انتقل لاستضافة تدعمه، أو على Render أعد إنشاء الخدمة بنوع <b>Docker</b>.</td>
+  </tr>
+  <tr>
+    <td>تسجيل الدخول لا يعمل</td>
+    <td>غالباً نفس السبب السابق. افتح <code>موقعك.com/debug.php</code> وسيخبرك بالسبب بدقة.</td>
+  </tr>
+  <tr>
+    <td>التعديلات لا تُحفظ</td>
+    <td>مجلد <code>data</code> غير قابل للكتابة. اجعل صلاحيته <code>755</code> أو <code>775</code>.</td>
+  </tr>
+  <tr>
+    <td>رفع الصور يفشل</td>
+    <td>مجلد <code>uploads</code> غير قابل للكتابة. اضبط صلاحيته، وإن تعذّر فالموقع سيحفظ الصور داخل قاعدة البيانات تلقائياً (بحد ٢ ميجابايت للصورة).</td>
+  </tr>
+  <tr>
+    <td>«جدول site_configs غير موجود»</td>
+    <td>لم تُشغّل كود SQL في Supabase. انسخه من لوحة التحكم وشغّله في <b>SQL Editor</b> ثم أعد المحاولة.</td>
+  </tr>
+  <tr>
+    <td>التعديلات لا تظهر على الجوال</td>
+    <td>تأكد أنك تفتح <code>index.php</code> لا <code>index.html</code>، وأنك حذفت الملفات القديمة من الاستضافة. ثم امسح كاش المتصفح مرة واحدة.</td>
+  </tr>
+  <tr>
+    <td>عادت الإعدادات للوضع الافتراضي بعد النشر</td>
+    <td>خاص بـ Render: تُمسح الملفات مع كل نشر. اربط الموقع بـ Supabase أو MySQL خارجي لتبقى البيانات.</td>
+  </tr>
+</table>
+
+<div class="note info">
+  <b>أداتان للتشخيص داخل البرنامج</b>
+  <br>• <b>فحص حالة النظام</b> — داخل لوحة التحكم، يفحص الاستضافة ويشرح حل كل مشكلة.
+  <br>• <b>debug.php</b> — افتحه على الجهاز الذي يواجه المشكلة، يقارن بيانات الخادم بما يراه الجهاز
+  ويحدد السبب، وفيه زر لمسح الكاش المحلي.
+</div>
+
+<p style="text-align:center;color:#94a3b8;margin-top:50px;font-size:.85rem;">
+  دليل تركيب منصة بطاقات التهنئة — الإصدار ٤٨
+</p>
+
+</div>
+</body>
+</html>

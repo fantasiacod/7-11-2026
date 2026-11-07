@@ -1,0 +1,379 @@
+:root {
+    /* Admin controllable variables */
+    --primary: #caaa98;
+    --bg-color: #4b4038;
+    --hf-bg-color1: #202940;
+    --hf-bg-color2: #4b4038;
+    --text-color: #ffffff;
+    --card-text-color: #ffffff;
+    --btn-text-color: #202940;
+    --decoration-color: #ffffff;
+    --decoration-opacity: 0.15;
+    --hf-decoration-color: #ffffff;
+    --hf-decoration-opacity: 0.15;
+    
+    /* Fallbacks linked to admin variables */
+    --primary-green: var(--primary);
+    --gold: var(--bg-color);
+    --bg-gradient: linear-gradient(135deg, var(--hf-bg-color1, #202940) 0%, var(--hf-bg-color2, #4b4038) 100%);
+}
+
+
+
+body, input, button, select, textarea, h1, h2, h3, h4, p, label, span, a {
+    font-family: 'Tajawal', 'Cairo', sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body { 
+    background-image: var(--bg-gradient); 
+    margin: 0; 
+    direction: rtl; 
+    min-height: 100vh;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.15s ease-in;
+}
+
+body.ready {
+    opacity: 1;
+}
+
+/* Site Decoration Overlay */
+.decoration-overlay,
+.hf-decoration-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--decoration-opacity, var(--hf-decoration-opacity, 0.15));
+    display: none;
+    background-color: var(--decoration-color, var(--hf-decoration-color, #ffffff));
+}
+.decoration-overlay.active,
+.hf-decoration-overlay.active {
+    display: block;
+}
+
+.pattern-arabic {
+    -webkit-mask-image: url("../assets/pattern_arabic.png");
+    mask-image: url("../assets/pattern_arabic.png");
+    -webkit-mask-size: 300px;
+    mask-size: 300px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+}
+.pattern-islamic-1 {
+    -webkit-mask-image: url("../assets/pattern_islamic.png");
+    mask-image: url("../assets/pattern_islamic.png");
+    -webkit-mask-size: 250px;
+    mask-size: 250px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+}
+.pattern-islamic-2 {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask-size: 100px;
+    mask-size: 100px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+}
+.pattern-modern-dots {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask-size: 50px;
+    mask-size: 50px;
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+}
+
+.header {
+    background: linear-gradient(90deg, var(--hf-bg-color1, #202940), var(--hf-bg-color2, #4b4038));
+    padding: 12px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.header > *:not(.hf-decoration-overlay):not(.decoration-overlay) {
+    position: relative;
+    z-index: 2;
+}
+
+.header-right { display: flex; align-items: center; gap: 15px; }
+.logo { height: 70px; width: auto; border-radius: 8px; }
+.header-info h1 { color: var(--text-color, var(--primary-green)); margin: 0; font-size: 22px; }
+
+.btn-site-link { 
+    background: var(--gold); 
+    color: var(--text-color, white); 
+    padding: 10px 25px; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+.main-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+.preview-box {
+    position: relative;
+    width: 100%;
+    /* يضبطه fitCard() في app.js حسب أبعاد البطاقة المعروضة، فلا يطول
+       الكرت الطولي حتى يُخفي حقل الاسم وزر التحميل تحته. */
+    max-width: 450px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    background: #111;
+    margin-bottom: 20px;
+}
+
+/* الصورة تملأ منطقة الالتقاط تماماً (عرض ١٠٠٪ وارتفاع تلقائي) فلا يبقى
+   حولها فراغ شفاف يظهر كإطار أسود في الملف المحفوظ. */
+#capture-area { position: relative; width: 100%; line-height: 0; container-type: inline-size; }
+.main-img { width: 100%; height: auto; display: block; transition: opacity 0.5s ease; }
+
+/* شبكة أمان: لو تعذّر تحميل صورة البطاقة (رابط معطوب) يصبح ارتفاعها
+   صفراً فينتج ملف فارغ. هذه الفئة يضعها app.js عند فشل التحميل فقط. */
+#capture-area.card-broken { min-width: 190px; min-height: 200px; }
+
+/* شعار الموقع فوق البطاقة.
+   الموضع والحجم بالنسبة المئوية من عرض البطاقة، فيبقى الشعار في مكانه
+   نفسه سواء عُرضت البطاقة صغيرة على الجوال أو كبيرة على الكمبيوتر،
+   وسواء في الشاشة أو في الصورة المحمَّلة. */
+.card-logo {
+    position: absolute;
+    transform: translate(50%, -50%);
+    pointer-events: none;
+    height: auto;
+    object-fit: contain;
+}
+
+/* حاوية الاسم القابلة للتعديل */
+.name-overlay {
+    position: absolute;
+    bottom: 12%; 
+    right: 0%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.name-tag {
+    /* بلا خلفية ولا إطار: الاسم نص مجرّد فوق البطاقة. الظل أسفله يُبقيه
+       مقروءاً حتى على الصور الفاتحة. (الخلفية الضبابية السابقة كانت أيضاً
+       لا تُرسم في الصورة المحفوظة لأن html2canvas لا يدعم backdrop-filter،
+       فتظهر مستطيلاً رمادياً مصمتاً بدل الزجاج الشفاف.) */
+    padding: 8px 22px;
+    color: var(--text-color, #ffffff);
+    /* قيمة احتياطية للمتصفحات القديمة */
+    font-size: 17px;
+    /* الحجم يتبع عرض البطاقة نفسها، فلا يخرج النص خارجها
+       مهما صغرت الشاشة أو كبرت */
+    font-size: clamp(11px, 5cqw, 19px);
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    /* الأسماء الطويلة تنزل لسطر ثانٍ بدل أن تتجاوز حدود الصورة.
+       line-height لازم هنا: منطقة الالتقاط تضع 0 لإزالة الفراغ تحت
+       الصورة، وبدون هذا السطر يتراكب السطران فوق بعضهما. */
+    max-width: 86%;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
+.carousel-container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.thumb { 
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    border: 3px solid transparent;
+    transition: 0.3s;
+}
+
+.thumb.active { border-color: var(--primary-green); transform: scale(1.1); }
+
+.input-group { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 15px; }
+input[type="text"] { 
+    padding: 16px; 
+    border-radius: 10px; 
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 16px; 
+    text-align: center; 
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+input[type="text"]:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 2px rgba(202, 170, 152, 0.3);
+}
+
+.dl-button { 
+    background: var(--primary, #caaa98);
+    color: var(--btn-text-color, #202940); 
+    padding: 18px; 
+    border: none; 
+    border-radius: 10px; 
+    font-size: 18px; 
+    font-weight: 800; 
+    cursor: pointer; 
+    font-family: inherit;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.dl-button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* الفوتر المطور */
+.footer {
+    margin-top: 50px;
+    padding: 30px 20px;
+    background: linear-gradient(90deg, var(--hf-bg-color1, #202940), var(--hf-bg-color2, #4b4038));
+    text-align: center;
+    color: var(--text-color, white);
+    border-top: 2px solid var(--primary-green);
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.footer > *:not(.hf-decoration-overlay):not(.decoration-overlay) {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-us {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.contact-link {
+    color: var(--text-color, var(--primary-green));
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+}
+
+.contact-link:hover {
+    color: white;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 480px) {
+    /* الهيدر: كان العنوان يمتد تحت الشعار وزر الإعدادات فيُقطع.
+       تقييد عرض الكتلة يترك مكاناً للزر، و min-width يسمح للعنوان
+       بالانكماش بدل الخروج خارج الشاشة. */
+    .header {
+        padding: 10px 4%;
+    }
+    .logo {
+        height: 48px;
+        flex-shrink: 0;
+    }
+    .header-right {
+        gap: 10px;
+        min-width: 0;
+        max-width: calc(100% - 60px);
+    }
+    .header-info {
+        min-width: 0;
+    }
+    .header-info h1 {
+        font-size: 15px;
+        line-height: 1.4;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    /* البطاقة: كانت تملأ الشاشة كاملة فيختفي حقل الاسم وزر التحميل
+       تحت الطيّة. تحديد أقصى ارتفاع بالنسبة لارتفاع الشاشة يُظهرهما معاً. */
+    .main-container {
+        margin: 14px auto;
+        padding: 0 12px;
+    }
+    .preview-box {
+        margin-bottom: 14px;
+    }
+    .name-tag {
+        padding: 6px 16px;
+    }
+
+    .carousel-container {
+        padding: 10px;
+        margin-bottom: 14px;
+    }
+    .carousel-track {
+        gap: 10px;
+    }
+    .thumb {
+        width: 56px;
+        height: 56px;
+    }
+
+    .input-group {
+        gap: 10px;
+    }
+    input[type="text"] {
+        padding: 13px;
+    }
+    .dl-button {
+        padding: 14px;
+        font-size: 16px;
+    }
+}

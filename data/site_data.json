@@ -1,0 +1,57 @@
+{
+  "last_modified": 1788003705,
+  "config": {
+    "companyName": "بطاقات التهنئة1",
+    "primaryColor": "#caaa98",
+    "btnTextColor": "#000000",
+    "textColor": "#ffffff",
+    "fontFamily": "'Tajawal', sans-serif",
+    "logoUrl": "img/logo.jpg",
+    "logoPosition": "right",
+    "buttonsPosition": "left",
+    "decoration": "islamic-1",
+    "decorationColor": "#000000",
+    "decorationOpacity": "1",
+    "hfColor1": "#1d3377",
+    "hfColor2": "#7a4343",
+    "mainSiteUrl": "",
+    "whatsapp": "",
+    "twitter": "",
+    "instagram": "",
+    "youtube": "",
+    "salla": "",
+    "blog": "",
+    "hfDecoration": "islamic-1",
+    "hfDecorationColor": "#000000",
+    "hfOpacity": "1",
+    "cardTextColor": "#ffffff",
+    "colorPrimary": "#a39462",
+    "colorBg": "#4b4038",
+    "adminCardBg": "#9a8678",
+    "logoDataUrl": "uploads/logo_1788003670_e242d320.png"
+  },
+  "cards": [
+    {
+      "src": "https://i.postimg.cc/Y92P6tjw/image.png",
+      "bottom": "10%",
+      "right": "0%",
+      "color": "#56491a"
+    },
+    {
+      "src": "https://i.postimg.cc/D0hPcv4D/image.png",
+      "bottom": "10%",
+      "right": "0%"
+    },
+    {
+      "src": "https://i.postimg.cc/SNPRCZ9K/image.png",
+      "bottom": "25%",
+      "right": "0%"
+    }
+  ],
+  "stats": {
+    "views": 0,
+    "previews": 0,
+    "downloads": 0
+  },
+  "cardStats": {}
+}
